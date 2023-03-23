@@ -5,6 +5,12 @@
 /.pnp
 .pnp.js
 
+mongo/
+
+# env files
+.env.development
+.env.production
+
 # testing
 /coverage
 
