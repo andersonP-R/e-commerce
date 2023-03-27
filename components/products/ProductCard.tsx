@@ -10,8 +10,7 @@ import {
   Link,
   Chip,
 } from "@mui/material";
-
-import { IProduct } from "../../interfaces";
+import { IProduct } from "@/interfaces";
 
 interface Props {
   product: IProduct;
@@ -58,7 +57,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
               <CardMedia
                 component="img"
                 className="fadeIn"
-                image={productImage}
+                image={`${process.env.NEXT_PUBLIC_HOST_NAME}products/${productImage}`}
                 alt={product.title}
                 onLoad={() => setIsImageLoaded(true)}
               />

@@ -14,13 +14,17 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { UiContext } from "@/context";
-// import { ClearOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
+import { CartContext, UiContext } from "@/context";
+import {
+  ClearOutlined,
+  SearchOutlined,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
 
 export const Navbar = () => {
   const { asPath, push } = useRouter();
   const { toggleSideMenu } = useContext(UiContext);
-  // const { numberOfItems } = useContext( CartContext );
+  const { numberOfItems } = useContext(CartContext);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -49,21 +53,21 @@ export const Navbar = () => {
           className="fadeIn"
         >
           <NextLink href="/category/men" passHref legacyBehavior>
-            <Link>
+            <Link mr={1}>
               <Button color={asPath === "/category/men" ? "primary" : "info"}>
                 Hombres
               </Button>
             </Link>
           </NextLink>
           <NextLink href="/category/women" passHref legacyBehavior>
-            <Link>
+            <Link mr={1}>
               <Button color={asPath === "/category/women" ? "primary" : "info"}>
                 Mujeres
               </Button>
             </Link>
           </NextLink>
           <NextLink href="/category/kid" passHref legacyBehavior>
-            <Link>
+            <Link mr={1}>
               <Button color={asPath === "/category/kid" ? "primary" : "info"}>
                 Niños
               </Button>
@@ -110,16 +114,18 @@ export const Navbar = () => {
           {/* <SearchOutlined /> */}
         </IconButton>
 
-        {/* 
-                <NextLink href="/cart" passHref>
-                    <Link>
-                        <IconButton>
-                            <Badge badgeContent={ numberOfItems > 9 ? '+9': numberOfItems  } color="secondary">
-                                <ShoppingCartOutlined />
-                            </Badge>
-                        </IconButton>
-                    </Link>
-                </NextLink> */}
+        <NextLink href="/cart" passHref legacyBehavior>
+          <Link>
+            <IconButton>
+              <Badge
+                badgeContent={numberOfItems > 9 ? "+9" : numberOfItems}
+                color="secondary"
+              >
+                {/* <ShoppingCartOutlined /> */}
+              </Badge>
+            </IconButton>
+          </Link>
+        </NextLink>
 
         <Button onClick={toggleSideMenu}>Menú</Button>
       </Toolbar>

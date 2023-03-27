@@ -41,6 +41,7 @@ const productSchema = new Schema(
   }
 );
 
+// creamos un indice para realizar busquedas con mongoose
 productSchema.index({ title: "text", tags: "text" });
 
 const Product: Model<IProduct> =
