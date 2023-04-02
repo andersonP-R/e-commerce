@@ -1,11 +1,22 @@
 import { useState, useEffect } from "react";
 import useSWR from "swr";
-// import { AttachMoneyOutlined, CreditCardOffOutlined, CreditCardOutlined, DashboardOutlined, GroupOutlined, CategoryOutlined, CancelPresentationOutlined, ProductionQuantityLimitsOutlined, AccessTimeOutlined } from '@mui/icons-material';
 
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { AdminLayout } from "@/components/layouts";
 import { SummaryTitle } from "@/components/admin";
 import { DashboardSummaryResponse } from "@/interfaces";
+import {
+  MdOutlineDashboard,
+  MdOutlineWorkspaces,
+  MdSupervisorAccount,
+  MdOutlineAssignmentTurnedIn,
+  MdPendingActions,
+  MdProductionQuantityLimits,
+  MdOutlineInventory2,
+  MdListAlt,
+  MdSync,
+} from "react-icons/md";
+import { IconContext } from "react-icons";
 
 const DashboardPage = () => {
   const { data, error } = useSWR<DashboardSummaryResponse>(
@@ -46,74 +57,94 @@ const DashboardPage = () => {
 
   return (
     <AdminLayout
+      titlePage="Dashboard administrativo"
       title="Dashboard"
       subTitle="Estadisticas generales"
-      // icon={ <DashboardOutlined /> }
+      icon={<MdOutlineDashboard />}
     >
-      <Grid container spacing={2}>
-        <SummaryTitle
-          title={numberOfOrders}
-          subTitle="Ordenes totales"
-          icon={<h1>hey</h1>}
-          // icon={ <CreditCardOutlined color="secondary" sx={{ fontSize: 40 }} /> }
-        />
+      <IconContext.Provider value={{ style: { fontSize: "3rem" } }}>
+        <Grid container spacing={2}>
+          <SummaryTitle
+            title={numberOfOrders}
+            subTitle="Ordenes totales"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdListAlt />
+              </Box>
+            }
+          />
 
-        <SummaryTitle
-          title={paidOrders}
-          subTitle="Ordenes pagadas"
-          icon={<h1>hey</h1>}
+          <SummaryTitle
+            title={paidOrders}
+            subTitle="Ordenes pagadas"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdOutlineAssignmentTurnedIn />
+              </Box>
+            }
+          />
 
-          // icon={ <AttachMoneyOutlined color="success" sx={{ fontSize: 40 }} /> }
-        />
+          <SummaryTitle
+            title={notPaidOrders}
+            subTitle="Ordenes pendientes"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdPendingActions />
+              </Box>
+            }
+          />
 
-        <SummaryTitle
-          title={notPaidOrders}
-          subTitle="Ordenes pendientes"
-          icon={<h1>hey</h1>}
+          <SummaryTitle
+            title={numberOfClients}
+            subTitle="Clientes"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdSupervisorAccount />
+              </Box>
+            }
+          />
 
-          // icon={ <CreditCardOffOutlined color="error" sx={{ fontSize: 40 }} /> }
-        />
+          <SummaryTitle
+            title={numberOfProducts}
+            subTitle="Productos"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdOutlineWorkspaces />
+              </Box>
+            }
+          />
 
-        <SummaryTitle
-          title={numberOfClients}
-          subTitle="Clientes"
-          icon={<h1>hey</h1>}
+          <SummaryTitle
+            title={productsWithNoInventory}
+            subTitle="Sin existencias"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdProductionQuantityLimits />
+              </Box>
+            }
+          />
 
-          // icon={ <GroupOutlined color="primary" sx={{ fontSize: 40 }} /> }
-        />
+          <SummaryTitle
+            title={lowInventory}
+            subTitle="Bajo inventario"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdOutlineInventory2 />
+              </Box>
+            }
+          />
 
-        <SummaryTitle
-          title={numberOfProducts}
-          subTitle="Productos"
-          icon={<h1>hey</h1>}
-
-          // icon={ <CategoryOutlined color="warning" sx={{ fontSize: 40 }} /> }
-        />
-
-        <SummaryTitle
-          title={productsWithNoInventory}
-          subTitle="Sin existencias"
-          icon={<h1>hey</h1>}
-
-          // icon={ <CancelPresentationOutlined color="error" sx={{ fontSize: 40 }} /> }
-        />
-
-        <SummaryTitle
-          title={lowInventory}
-          subTitle="Bajo inventario"
-          icon={<h1>hey</h1>}
-
-          // icon={ <ProductionQuantityLimitsOutlined color="warning" sx={{ fontSize: 40 }} /> }
-        />
-
-        <SummaryTitle
-          title={refreshIn}
-          subTitle="Actualización en:"
-          icon={<h1>hey</h1>}
-
-          // icon={ <AccessTimeOutlined color="secondary" sx={{ fontSize: 40 }} /> }
-        />
-      </Grid>
+          <SummaryTitle
+            title={refreshIn}
+            subTitle="Actualización en:"
+            icon={
+              <Box sx={{ color: "#000" }}>
+                <MdSync />
+              </Box>
+            }
+          />
+        </Grid>
+      </IconContext.Provider>
     </AdminLayout>
   );
 };
