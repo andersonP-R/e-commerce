@@ -14,10 +14,7 @@ import {
   Chip,
   CircularProgress,
 } from "@mui/material";
-import {
-  CreditCardOffOutlined,
-  CreditScoreOutlined,
-} from "@mui/icons-material";
+
 import { IOrder } from "@/interfaces";
 import { ShopLayout } from "@/components/layouts";
 import { tesloApi } from "@/api";

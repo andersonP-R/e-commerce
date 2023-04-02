@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
-import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
+import { MdAddCircleOutline, MdRemoveCircleOutline } from "react-icons/md";
+import { IconContext } from "react-icons";
 
 interface Props {
   currentValue: number;
@@ -29,16 +30,20 @@ export const ItemCounter: FC<Props> = ({
 
   return (
     <Box display="flex" alignItems="center">
-      <IconButton onClick={() => addOrRemove(-1)}>
-        {/* <RemoveCircleOutline /> */}
-      </IconButton>
-      <Typography sx={{ width: 40, textAlign: "center" }}>
-        {" "}
-        {currentValue}{" "}
-      </Typography>
-      <IconButton onClick={() => addOrRemove(+1)}>
-        {/* <AddCircleOutline /> */}
-      </IconButton>
+      <IconContext.Provider
+        value={{ style: { fontSize: "1.4rem", color: "#000" } }}
+      >
+        <IconButton onClick={() => addOrRemove(-1)}>
+          <MdRemoveCircleOutline />
+        </IconButton>
+        <Typography sx={{ width: 40, textAlign: "center" }}>
+          {" "}
+          {currentValue}{" "}
+        </Typography>
+        <IconButton onClick={() => addOrRemove(+1)}>
+          <MdAddCircleOutline />
+        </IconButton>
+      </IconContext.Provider>
     </Box>
   );
 };

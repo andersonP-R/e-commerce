@@ -2,18 +2,57 @@ import { NextResponse, NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(req: NextRequest) {
-  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const session: any = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
   const requestedPage = req.nextUrl.pathname;
-  const url = req.nextUrl.clone();
-  url.pathname = `/auth/login`;
+  const validRoles = ["admin", "super-user", "SEO"];
 
   if (!session) {
-    return NextResponse.rewrite(`${url}?p=${requestedPage}`);
+    const url = req.nextUrl.clone();
+    url.pathname = `/auth/login`;
+    url.search = `p=${requestedPage}`;
+
+    if (requestedPage.includes("/api")) {
+      return new Response(JSON.stringify({ message: "No autorizado" }), {
+        status: 401,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
+    return NextResponse.redirect(url);
+  }
+
+  if (
+    requestedPage.includes("/api/admin") &&
+    !validRoles.includes(session.user.role)
+  ) {
+    return new Response(JSON.stringify({ message: "No autorizado" }), {
+      status: 401,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  if (
+    requestedPage.includes("/admin") &&
+    !validRoles.includes(session.user.role)
+  ) {
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/checkout/:path*"],
+  matcher: [
+    "/checkout/:path*",
+    "/api/orders/:path*",
+    "/admin/:path*",
+    "/api/admin/:path*",
+  ],
 };

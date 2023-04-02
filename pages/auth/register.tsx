@@ -14,7 +14,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ErrorOutline } from "@mui/icons-material";
 import { AuthLayout } from "@/components/layouts";
 import { validations } from "@/utils";
 import { AuthContext } from "@/context";
@@ -67,7 +66,7 @@ const RegisterPage = () => {
               <Chip
                 label="No reconocemos ese usuario / contraseña"
                 color="error"
-                icon={<ErrorOutline />}
+                // icon={<ErrorOutline />}
                 className="fadeIn"
                 sx={{ display: showError ? "flex" : "none" }}
               />

@@ -2,11 +2,13 @@ import { FC, PropsWithChildren } from "react";
 import { Box, Typography } from "@mui/material";
 import { AdminNavbar } from "../admin";
 import { SideMenu } from "../ui";
+import Head from "next/head";
 
 interface Props {
   title: string;
   subTitle: string;
   icon?: JSX.Element;
+  titlePage: string;
 }
 
 export const AdminLayout: FC<PropsWithChildren<Props>> = ({
@@ -14,9 +16,13 @@ export const AdminLayout: FC<PropsWithChildren<Props>> = ({
   title,
   subTitle,
   icon,
+  titlePage,
 }) => {
   return (
     <>
+      <Head>
+        <title>{titlePage}</title>
+      </Head>
       <nav>
         <AdminNavbar />
       </nav>

@@ -16,18 +16,19 @@ import {
   ListSubheader,
 } from "@mui/material";
 import {
-  AccountCircleOutlined,
-  AdminPanelSettings,
-  CategoryOutlined,
-  ConfirmationNumberOutlined,
-  EscalatorWarningOutlined,
-  FemaleOutlined,
-  LoginOutlined,
-  MaleOutlined,
-  SearchOutlined,
-  VpnKeyOutlined,
-  DashboardOutlined,
-} from "@mui/icons-material";
+  MdOutlineSearch,
+  MdLogin,
+  MdLogout,
+  MdOutlineAccountCircle,
+  MdOutlineDashboard,
+  MdSupervisorAccount,
+  MdOutlineWorkspaces,
+  MdOutlineChildCare,
+  MdOutlineFemale,
+  MdMale,
+  MdListAlt,
+} from "react-icons/md";
+import { IconContext } from "react-icons";
 
 import { AuthContext, UiContext } from "@/context";
 
@@ -55,109 +56,131 @@ export const SideMenu = () => {
       sx={{ backdropFilter: "blur(4px)", transition: "all 0.5s ease-out" }}
       onClose={toggleSideMenu}
     >
-      <Box sx={{ width: 250, paddingTop: 5 }}>
-        <List>
-          <ListItem>
-            <Input
-              autoFocus
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyPress={(e) => (e.key === "Enter" ? onSearchTerm() : null)}
-              type="text"
-              placeholder="Buscar..."
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton onClick={onSearchTerm}>
-                    {/* <SearchOutlined /> */}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </ListItem>
+      <IconContext.Provider
+        value={{ style: { fontSize: "1.4rem", color: "#000" } }}
+      >
+        <Box sx={{ width: 250, paddingTop: 5 }}>
+          <List>
+            <ListItem>
+              <Input
+                autoFocus
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyPress={(e) => (e.key === "Enter" ? onSearchTerm() : null)}
+                type="text"
+                placeholder="Buscar..."
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton onClick={onSearchTerm}>
+                      <MdOutlineSearch />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </ListItem>
 
-          {isLoggedIn && (
-            <>
-              <ListItemButton>
-                <ListItemIcon>{/* <AccountCircleOutlined/> */}</ListItemIcon>
-                <ListItemText primary={"Perfil"} />
-              </ListItemButton>
-              <ListItemButton onClick={() => navigateTo("/orders/history")}>
-                <ListItemIcon>
-                  {/* <ConfirmationNumberOutlined/> */}
-                </ListItemIcon>
-                <ListItemText primary={"Mis Ordenes"} />
-              </ListItemButton>
-            </>
-          )}
+            {isLoggedIn && (
+              <>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <MdOutlineAccountCircle />
+                  </ListItemIcon>
+                  <ListItemText primary={"Perfil"} />
+                </ListItemButton>
+                <ListItemButton onClick={() => navigateTo("/orders/history")}>
+                  <ListItemIcon>
+                    <MdListAlt />
+                  </ListItemIcon>
+                  <ListItemText primary={"Mis Ordenes"} />
+                </ListItemButton>
+              </>
+            )}
 
-          <ListItemButton
-            sx={{ display: { xs: "", sm: "none" } }}
-            onClick={() => navigateTo("/category/men")}
-          >
-            <ListItemIcon>{/* <MaleOutlined /> */}</ListItemIcon>
-            <ListItemText primary={"Hombres"} />
-          </ListItemButton>
-
-          <ListItemButton
-            sx={{ display: { xs: "", sm: "none" } }}
-            onClick={() => navigateTo("/category/women")}
-          >
-            <ListItemIcon>{/* <FemaleOutlined /> */}</ListItemIcon>
-            <ListItemText primary={"Mujeres"} />
-          </ListItemButton>
-
-          <ListItemButton
-            sx={{ display: { xs: "", sm: "none" } }}
-            onClick={() => navigateTo("/category/kid")}
-          >
-            <ListItemIcon>{/* <EscalatorWarningOutlined /> */}</ListItemIcon>
-            <ListItemText primary={"Niños"} />
-          </ListItemButton>
-
-          {isLoggedIn ? (
-            <ListItemButton onClick={logoutUser}>
-              <ListItemIcon>{/* <LoginOutlined/> */}</ListItemIcon>
-              <ListItemText primary={"Salir"} />
-            </ListItemButton>
-          ) : (
             <ListItemButton
-              onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}
+              sx={{ display: { xs: "", sm: "none" } }}
+              onClick={() => navigateTo("/category/men")}
             >
-              <ListItemIcon>{/* <VpnKeyOutlined /> */}</ListItemIcon>
-              <ListItemText primary={"Ingresar"} />
+              <ListItemIcon>{<MdMale />}</ListItemIcon>
+              <ListItemText primary={"Hombres"} />
             </ListItemButton>
-          )}
 
-          {/* Admin */}
-          {user?.role === "admin" && (
-            <>
-              <Divider />
-              <ListSubheader>Admin Panel</ListSubheader>
+            <ListItemButton
+              sx={{ display: { xs: "", sm: "none" } }}
+              onClick={() => navigateTo("/category/women")}
+            >
+              <ListItemIcon>
+                {" "}
+                <MdOutlineFemale />{" "}
+              </ListItemIcon>
+              <ListItemText primary={"Mujeres"} />
+            </ListItemButton>
 
-              <ListItemButton onClick={() => navigateTo("/admin/")}>
-                <ListItemIcon>{/* <DashboardOutlined /> */}</ListItemIcon>
-                <ListItemText primary={"Dashboard"} />
-              </ListItemButton>
+            <ListItemButton
+              sx={{ display: { xs: "", sm: "none" } }}
+              onClick={() => navigateTo("/category/kid")}
+            >
+              <ListItemIcon>
+                <MdOutlineChildCare />{" "}
+              </ListItemIcon>
+              <ListItemText primary={"Niños"} />
+            </ListItemButton>
 
-              <ListItemButton onClick={() => navigateTo("/admin/products")}>
-                <ListItemIcon>{/* <CategoryOutlined/> */}</ListItemIcon>
-                <ListItemText primary={"Productos"} />
-              </ListItemButton>
-              <ListItemButton onClick={() => navigateTo("/admin/orders")}>
+            {isLoggedIn ? (
+              <ListItemButton onClick={logoutUser}>
                 <ListItemIcon>
-                  {/* <ConfirmationNumberOutlined/> */}
+                  <MdLogout />
                 </ListItemIcon>
-                <ListItemText primary={"Ordenes"} />
+                <ListItemText primary={"Salir"} />
               </ListItemButton>
+            ) : (
+              <ListItemButton
+                onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}
+              >
+                <ListItemIcon>
+                  <MdLogin />
+                </ListItemIcon>
+                <ListItemText primary={"Ingresar"} />
+              </ListItemButton>
+            )}
 
-              <ListItemButton onClick={() => navigateTo("/admin/users")}>
-                <ListItemIcon>{/* <AdminPanelSettings/> */}</ListItemIcon>
-                <ListItemText primary={"Usuarios"} />
-              </ListItemButton>
-            </>
-          )}
-        </List>
-      </Box>
+            {/* Admin */}
+            {user?.role === "admin" && (
+              <>
+                <Divider />
+                <ListSubheader>Admin Panel</ListSubheader>
+
+                <ListItemButton onClick={() => navigateTo("/admin/")}>
+                  <ListItemIcon>
+                    <MdOutlineDashboard />{" "}
+                  </ListItemIcon>
+                  <ListItemText primary={"Dashboard"} />
+                </ListItemButton>
+
+                <ListItemButton onClick={() => navigateTo("/admin/products")}>
+                  <ListItemIcon>
+                    <MdOutlineWorkspaces />{" "}
+                  </ListItemIcon>
+                  <ListItemText primary={"Productos"} />
+                </ListItemButton>
+                <ListItemButton onClick={() => navigateTo("/admin/orders")}>
+                  <ListItemIcon>
+                    <MdListAlt />
+                  </ListItemIcon>
+                  <ListItemText primary={"Ordenes"} />
+                </ListItemButton>
+
+                <ListItemButton onClick={() => navigateTo("/admin/users")}>
+                  <ListItemIcon>
+                    {" "}
+                    <MdSupervisorAccount />{" "}
+                  </ListItemIcon>
+                  <ListItemText primary={"Usuarios"} />
+                </ListItemButton>
+              </>
+            )}
+          </List>
+        </Box>
+      </IconContext.Provider>
     </Drawer>
   );
 };
