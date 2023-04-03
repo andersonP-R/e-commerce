@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useEffect, useReducer } from "react";
 import { useSession, signOut } from "next-auth/react";
-import { tesloApi } from "../../api";
+import { tesloApi } from "../../axiosApi";
 import { IUser } from "../../interfaces";
 import { AuthContext, authReducer } from "./";
 import Cookies from "js-cookie";

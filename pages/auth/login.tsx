@@ -127,7 +127,7 @@ const LoginPage = () => {
               <Divider sx={{ width: "100%", mb: 2 }} />
 
               {/* transformamos el obj "Provider" a un array */}
-              {Object.values(providers).map((provider: any) => {
+              {/* {Object.values(providers).map((provider: any) => {
                 // borramos el provedor Credentials.
                 if (provider.id === "credentials") {
                   return <div key="credentials"></div>;
@@ -145,7 +145,7 @@ const LoginPage = () => {
                     {provider.name}
                   </Button>
                 );
-              })}
+              })} */}
             </Grid>
           </Grid>
         </Box>

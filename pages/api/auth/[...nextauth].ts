@@ -26,17 +26,11 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials): Promise<any> {
-        // console.log({ credentials });
         return await dbUsers.checkUserEmailPassWord(
           credentials!.email,
           credentials!.password
         );
       },
-    }),
-
-    GithubProvider({
-      clientId: process.env.GITHUB_ID || "",
-      clientSecret: process.env.GITHUB_SECRET || "",
     }),
   ],
 
