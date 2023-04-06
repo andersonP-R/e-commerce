@@ -3,9 +3,9 @@ import { isValidObjectId } from "mongoose";
 import { IProduct } from "@/interfaces";
 import { db } from "@/database";
 import { Product } from "@/models";
-// import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary } from "cloudinary";
 
-// cloudinary.config( process.env.CLOUDINARY_URL || '' );
+cloudinary.config(process.env.CLOUDINARY_URL || "");
 
 type Data = { message: string } | IProduct[] | IProduct;
 
@@ -35,12 +35,11 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   await db.disconnect();
 
-  // TODO:
   const updatedProducts = products.map((product) => {
     product.images = product.images.map((image) => {
       return image.includes("http")
         ? image
-        : `${process.env.NEXT_PUBLIC_HOST_NAME}products/${image}`;
+        : `${process.env.NEXT_PUBLIC_HOST_NAME}/products/${image}`;
     });
 
     return product;
@@ -77,20 +76,20 @@ const updateProduct = async (
         .json({ message: "No existe un producto con ese ID" });
     }
 
-    // TODO: eliminar fotos en Cloudinary
-    // https://res.cloudinary.com/cursos-udemy/image/upload/v1645914028/nct31gbly4kde6cncc6i.jpg
+    // eliminar fotos en Cloudinary
     product.images.forEach(async (image) => {
       if (!images.includes(image)) {
         // Borrar de cloudinary
+
+        // sencillamente extraemos el id y la extension de la url de la imagen
         const [fileId, extension] = image
           .substring(image.lastIndexOf("/") + 1)
           .split(".");
-        console.log({ image, fileId, extension });
-        // await cloudinary.uploader.destroy( fileId );
+        await cloudinary.uploader.destroy(fileId);
       }
     });
 
-    // await product.update( req.body );
+    await product.updateOne(req.body);
     await db.disconnect();
 
     return res.status(200).json(product);
@@ -112,8 +111,6 @@ const createProduct = async (
       .status(400)
       .json({ message: "El producto necesita al menos 2 imágenes" });
   }
-
-  // TODO: posiblemente tendremos un localhost:3000/products/asdasd.jpg
 
   try {
     await db.connect();
