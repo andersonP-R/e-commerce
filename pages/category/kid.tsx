@@ -13,10 +13,10 @@ const KidPage: NextPage = () => {
       title={"Teslo-Shop - Kids"}
       pageDescription={"Encuentra los mejores productos de Teslo para niños"}
     >
-      <Typography variant="h1" component="h1">
+      <Typography variant="h1" component="h1" mb={2}>
         Niños
       </Typography>
-      <Typography variant="h2" sx={{ mb: 1 }}>
+      <Typography variant="h2" mb={1}>
         Productos para niños
       </Typography>
 

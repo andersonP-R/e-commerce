@@ -62,7 +62,7 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
       title={"Historial de ordenes"}
       pageDescription={"Historial de ordenes del cliente"}
     >
-      <Typography variant="h1" component="h1">
+      <Typography variant="h1" component="h1" mb={2}>
         Historial de ordenes
       </Typography>
 

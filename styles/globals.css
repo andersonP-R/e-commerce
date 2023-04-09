@@ -33,3 +33,22 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
+
+.nav-button{
+
+  background: linear-gradient(to right, #000000, #000000),
+        linear-gradient(to right, #fa181828, #fa1818, #df4949);
+      background-size: 0% 3px, 0 3px;
+      background-position: 100% 100%, 0 100%;
+      background-repeat: no-repeat;
+      transition: background-size 400ms;
+}
+
+.nav-button:hover{
+  background-color: transparent; 
+  background-size: 0 3px, 100% 3px;
+}
+
+.current-nav-button{
+  background-size: 0 3px, 100% 3px;
+}

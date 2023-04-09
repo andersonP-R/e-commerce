@@ -17,6 +17,8 @@ import { useForm } from "react-hook-form";
 import { AuthLayout } from "@/components/layouts";
 import { validations } from "@/utils";
 import { useRouter } from "next/router";
+import { LoginSlideshow, LogoMiddle } from "@/components/ui";
+import { MdErrorOutline } from "react-icons/md";
 
 type FormData = {
   email: string;
@@ -24,7 +26,7 @@ type FormData = {
 };
 
 const LoginPage = () => {
-  const router = useRouter();
+  const { query, asPath } = useRouter();
   const [showError, setShowError] = useState(false);
   const [providers, setProviders] = useState<any>({});
 
@@ -40,8 +42,16 @@ const LoginPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (asPath.includes("error")) {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+    }
+  }, [asPath]);
+
   const onLoginUser = async ({ email, password }: FormData) => {
     setShowError(false);
+
     await signIn("credentials", { email, password });
   };
 
@@ -50,17 +60,23 @@ const LoginPage = () => {
       <form onSubmit={handleSubmit(onLoginUser)}>
         <Box
           sx={{
-            width: 350,
-            padding: "10px 20px",
+            width: 380,
+            padding: "10px 40px",
           }}
         >
           <Grid container spacing={2}>
+            <Grid item xs={12} mb={4}>
+              <LogoMiddle />
+            </Grid>
+
             <Grid item xs={12}>
-              <Typography variant="h1">Iniciar sesión</Typography>
+              <Typography variant="h1" mb={1}>
+                Iniciar sesión
+              </Typography>
               <Chip
                 label="No reconocemos el usuario / contraseña"
                 color="error"
-                // icon={<ErrorOutline />}
+                icon={<MdErrorOutline />}
                 className="fadeIn"
                 sx={{ display: showError ? "flex" : "none" }}
               />
@@ -106,9 +122,7 @@ const LoginPage = () => {
             <Grid item xs={12} display="flex" justifyContent="end">
               <NextLink
                 href={
-                  router.query.p
-                    ? `/auth/register?p=${router.query.p}`
-                    : "/auth/register"
+                  query.p ? `/auth/register?p=${query.p}` : "/auth/register"
                 }
                 passHref
                 legacyBehavior
@@ -150,6 +164,8 @@ const LoginPage = () => {
           </Grid>
         </Box>
       </form>
+
+      <LoginSlideshow />
     </AuthLayout>
   );
 };

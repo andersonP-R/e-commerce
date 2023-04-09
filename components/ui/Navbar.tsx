@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 
@@ -17,11 +17,13 @@ import {
 import { CartContext, UiContext } from "@/context";
 import { MdShoppingCart, MdOutlineSearch, MdClose } from "react-icons/md";
 import { IconContext } from "react-icons";
+import { LogoSmall } from "./LogoSmall";
 
 export const Navbar = () => {
   const { asPath, push } = useRouter();
   const { toggleSideMenu } = useContext(UiContext);
   const { numberOfItems } = useContext(CartContext);
+  const [isScroll, setIsScroll] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -31,16 +33,27 @@ export const Navbar = () => {
     push(`/search/${searchTerm}`);
   };
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      window.pageYOffset > 50 ? setIsScroll(true) : setIsScroll(false);
+    });
+  }, [isScroll]);
+
   return (
-    <AppBar>
+    <AppBar
+      sx={
+        isScroll
+          ? { boxShadow: "0px 5px 5px #fff" }
+          : { boxShadow: "0px 5px 5px #ddd" }
+      }
+    >
       <Toolbar>
         <IconContext.Provider
           value={{ style: { fontSize: "1.4rem", color: "#000" } }}
         >
           <NextLink href="/" passHref legacyBehavior>
             <Link display="flex" alignItems="center">
-              <Typography variant="h6">Teslo |</Typography>
-              <Typography sx={{ ml: 0.5 }}>Shop</Typography>
+              <LogoSmall />
             </Link>
           </NextLink>
 
@@ -54,7 +67,11 @@ export const Navbar = () => {
           >
             <NextLink href="/category/men" passHref legacyBehavior>
               <Link mr={1}>
-                <Button color={asPath === "/category/men" ? "primary" : "info"}>
+                <Button
+                  className={`nav-button ${
+                    asPath === "/category/men" ? "current-nav-button" : ""
+                  }`}
+                >
                   Hombres
                 </Button>
               </Link>
@@ -62,7 +79,9 @@ export const Navbar = () => {
             <NextLink href="/category/women" passHref legacyBehavior>
               <Link mr={1}>
                 <Button
-                  color={asPath === "/category/women" ? "primary" : "info"}
+                  className={`nav-button ${
+                    asPath === "/category/women" ? "current-nav-button" : ""
+                  }`}
                 >
                   Mujeres
                 </Button>
@@ -70,7 +89,11 @@ export const Navbar = () => {
             </NextLink>
             <NextLink href="/category/kid" passHref legacyBehavior>
               <Link mr={1}>
-                <Button color={asPath === "/category/kid" ? "primary" : "info"}>
+                <Button
+                  className={`nav-button ${
+                    asPath === "/category/kid" ? "current-nav-button" : ""
+                  }`}
+                >
                   Niños
                 </Button>
               </Link>
@@ -129,7 +152,9 @@ export const Navbar = () => {
             </Link>
           </NextLink>
 
-          <Button onClick={toggleSideMenu}>Menú</Button>
+          <Button onClick={toggleSideMenu} sx={{ ml: 0.5 }}>
+            Menú
+          </Button>
         </IconContext.Provider>
       </Toolbar>
     </AppBar>

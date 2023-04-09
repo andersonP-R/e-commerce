@@ -22,6 +22,7 @@ export const AuthLayout: FC<PropsWithChildren<Props>> = ({
           justifyContent="center"
           alignItems="center"
           height="100vh"
+          overflow="hidden"
         >
           {children}
         </Box>

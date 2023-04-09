@@ -68,7 +68,7 @@ const AddressPage = () => {
       pageDescription="Confirmar dirección del destino"
     >
       <form onSubmit={handleSubmit(onSubmitAddress)}>
-        <Typography variant="h1" component="h1">
+        <Typography variant="h1" component="h1" mb={2}>
           Dirección
         </Typography>
 

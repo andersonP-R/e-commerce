@@ -57,7 +57,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
       title="Resumen de la orden"
       pageDescription={"Resumen de la orden"}
     >
-      <Typography variant="h1" component="h1">
+      <Typography variant="h1" component="h1" mb={2}>
         Orden: {order._id}
       </Typography>
 

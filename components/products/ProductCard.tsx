@@ -43,7 +43,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
             <CardActionArea>
               {product.inStock === 0 && (
                 <Chip
-                  color="primary"
+                  color="error"
                   label="No hay disponibles"
                   sx={{
                     position: "absolute",

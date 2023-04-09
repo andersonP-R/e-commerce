@@ -13,10 +13,10 @@ const MenPage: NextPage = () => {
       title={"Teslo-Shop - Men"}
       pageDescription={"Encuentra los mejores productos de Teslo para ellos"}
     >
-      <Typography variant="h1" component="h1">
+      <Typography variant="h1" component="h1" mb={2}>
         Hombres
       </Typography>
-      <Typography variant="h2" sx={{ mb: 1 }}>
+      <Typography variant="h2" mb={1}>
         Productos para ellos
       </Typography>
 

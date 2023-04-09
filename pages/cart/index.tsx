@@ -33,8 +33,8 @@ const CartPage = () => {
       title={`Carrito - ${cart.length}`}
       pageDescription={"Carrito de compras de la tienda"}
     >
-      <Typography variant="h1" component="h1">
-        Carrito
+      <Typography variant="h1" component="h1" mb={2}>
+        Productos
       </Typography>
 
       <Grid container>

@@ -31,6 +31,7 @@ import {
 import { IconContext } from "react-icons";
 
 import { AuthContext, UiContext } from "@/context";
+import { LogoSmall } from "./LogoSmall";
 
 export const SideMenu = () => {
   const router = useRouter();
@@ -59,7 +60,16 @@ export const SideMenu = () => {
       <IconContext.Provider
         value={{ style: { fontSize: "1.4rem", color: "#000" } }}
       >
-        <Box sx={{ width: 250, paddingTop: 5 }}>
+        <Box
+          sx={{
+            width: 250,
+            height: "100vh",
+            paddingTop: 5,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
           <List>
             <ListItem>
               <Input
@@ -179,6 +189,21 @@ export const SideMenu = () => {
               </>
             )}
           </List>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <LogoSmall />
+            <Box sx={{ mb: 2, fontSize: 12 }}>
+              Todos los derechos reservados
+            </Box>
+          </Box>
         </Box>
       </IconContext.Provider>
     </Drawer>
