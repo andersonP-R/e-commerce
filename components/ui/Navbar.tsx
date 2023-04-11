@@ -12,7 +12,6 @@ import {
   InputAdornment,
   Link,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import { CartContext, UiContext } from "@/context";
 import { MdShoppingCart, MdOutlineSearch, MdClose } from "react-icons/md";
@@ -43,19 +42,21 @@ export const Navbar = () => {
     <AppBar
       sx={
         isScroll
-          ? { boxShadow: "0px 5px 5px #fff" }
-          : { boxShadow: "0px 5px 5px #ddd" }
+          ? { boxShadow: "0px 5px 5px #00000049" }
+          : { boxShadow: "0px 5px 5px #fff" }
       }
     >
       <Toolbar>
         <IconContext.Provider
           value={{ style: { fontSize: "1.4rem", color: "#000" } }}
         >
-          <NextLink href="/" passHref legacyBehavior>
-            <Link display="flex" alignItems="center">
-              <LogoSmall />
-            </Link>
-          </NextLink>
+          <Box sx={{ ml: 1 }}>
+            <NextLink href="/" passHref legacyBehavior>
+              <Link display="flex" alignItems="center">
+                <LogoSmall />
+              </Link>
+            </NextLink>
+          </Box>
 
           <Box flex={1} />
 

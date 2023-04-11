@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Fade } from "react-slideshow-image";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { loginSlideImages } from "@/utils";
 import styles from "./LoginSlideshow.module.css";
 import "react-slideshow-image/dist/styles.css";
@@ -22,7 +22,12 @@ export const LoginSlideshow: FC = () => {
                   backgroundImage: `url(${image.picture})`,
                   backgroundSize: "cover",
                 }}
-              ></div>
+              >
+                <h1 className={styles.description}>{image.description}</h1>
+                <span className={styles.mask}></span>
+                {/* <span className={styles.mask}></span> */}
+                <span className={styles.backgroundMask}></span>
+              </div>
             </div>
           );
         })}
