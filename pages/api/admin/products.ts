@@ -39,7 +39,7 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     product.images = product.images.map((image) => {
       return image.includes("http")
         ? image
-        : `${process.env.NEXT_PUBLIC_HOST_NAME}/products/${image}`;
+        : `${process.env.HOST_NAME}/products/${image}`;
     });
 
     return product;
@@ -63,8 +63,6 @@ const updateProduct = async (
       .status(400)
       .json({ message: "Es necesario al menos 2 imágenes" });
   }
-
-  // TODO: posiblemente tendremos un localhost:3000/products/asdasd.jpg
 
   try {
     await db.connect();

@@ -17,6 +17,8 @@ import {
 import { AuthLayout } from "@/components/layouts";
 import { validations } from "@/utils";
 import { AuthContext } from "@/context";
+import { LoginSlideshow, LogoMiddle } from "@/components/ui";
+import { MdErrorOutline } from "react-icons/md";
 
 type FormData = {
   name: string;
@@ -47,18 +49,17 @@ const RegisterPage = () => {
       return;
     }
 
-    // Todo: navegar a la pantalla que el usuario estaba
-    // const destination = router.query.p?.toString() || '/';
-    // router.replace(destination);
-
     await signIn("credentials", { email, password });
   };
 
   return (
     <AuthLayout title={"Ingresar"}>
       <form onSubmit={handleSubmit(onRegisterForm)} noValidate>
-        <Box sx={{ width: 350, padding: "10px 20px" }}>
+        <Box sx={{ width: 380, padding: "10px 40px" }}>
           <Grid container spacing={2}>
+            <Grid item xs={12} mb={4}>
+              <LogoMiddle />
+            </Grid>
             <Grid item xs={12}>
               <Typography variant="h1" component="h1">
                 Crear cuenta
@@ -66,7 +67,7 @@ const RegisterPage = () => {
               <Chip
                 label="No reconocemos ese usuario / contraseña"
                 color="error"
-                // icon={<ErrorOutline />}
+                icon={<MdErrorOutline />}
                 className="fadeIn"
                 sx={{ display: showError ? "flex" : "none" }}
               />
@@ -142,6 +143,7 @@ const RegisterPage = () => {
           </Grid>
         </Box>
       </form>
+      <LoginSlideshow />
     </AuthLayout>
   );
 };
