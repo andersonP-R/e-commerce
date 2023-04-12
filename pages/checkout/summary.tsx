@@ -16,6 +16,8 @@ import {
 import { CartContext } from "@/context";
 import { ShopLayout } from "@/components/layouts";
 import { CartList, OrderSummary } from "@/components/cart";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 
 const SummaryPage = () => {
   const router = useRouter();
@@ -42,7 +44,7 @@ const SummaryPage = () => {
       return;
     }
 
-    router.replace(`/orders/${message}`);
+    router.push(`/orders/${message}`);
   };
 
   if (!shippingAddress) {
@@ -138,6 +140,23 @@ const SummaryPage = () => {
       </Grid>
     </ShopLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: `/auth/login?p=${req.url}`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default SummaryPage;
