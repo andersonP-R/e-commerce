@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
 
   // if (!session) return NextResponse.redirect(new URL("/", req.url));
 
-  if (session.user.role !== "admin") {
+  if (session.user!.role !== "admin") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
