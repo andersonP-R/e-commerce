@@ -6,6 +6,8 @@ import Cookies from "js-cookie";
 import { CartContext } from "@/context";
 import { countries } from "@/utils";
 import { ShopLayout } from "@/components/layouts";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 
 type FormData = {
   firstName: string;
@@ -195,5 +197,26 @@ const AddressPage = () => {
     </ShopLayout>
   );
 };
+
+// export const getServerSideProps: GetServerSideProps = async ({
+//   req,
+//   query,
+// }) => {
+//   const session = await getSession({ req });
+//   const { p = "/" } = query;
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: `/auth/login?p=${p.toString()}`,
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: {},
+//   };
+// };
 
 export default AddressPage;

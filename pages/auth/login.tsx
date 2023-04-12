@@ -36,11 +36,11 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  useEffect(() => {
-    getProviders().then((provider) => {
-      setProviders(provider);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getProviders().then((provider) => {
+  //     setProviders(provider);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (asPath.includes("error")) {

@@ -70,7 +70,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     Cookie.set("cart", JSON.stringify(state.cart), {
-      sameSite: "none",
+      sameSite: "lax",
       secure: true,
     });
   }, [state.cart]);
@@ -154,22 +154,22 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const updateAddress = (address: ShippingAddress) => {
     Cookie.set("firstName", address.firstName, {
-      sameSite: "none",
+      sameSite: "lax",
       secure: true,
     });
     Cookie.set("lastName", address.lastName, {
-      sameSite: "none",
+      sameSite: "lax",
       secure: true,
     });
     Cookie.set("address", address.address, { sameSite: "none", secure: true });
     Cookie.set("address2", address.address2 || "", {
-      sameSite: "none",
+      sameSite: "lax",
       secure: true,
     });
-    Cookie.set("zip", address.zip, { sameSite: "none", secure: true });
-    Cookie.set("city", address.city, { sameSite: "none", secure: true });
-    Cookie.set("country", address.country, { sameSite: "none", secure: true });
-    Cookie.set("phone", address.phone, { sameSite: "none", secure: true });
+    Cookie.set("zip", address.zip, { sameSite: "lax", secure: true });
+    Cookie.set("city", address.city, { sameSite: "lax", secure: true });
+    Cookie.set("country", address.country, { sameSite: "lax", secure: true });
+    Cookie.set("phone", address.phone, { sameSite: "lax", secure: true });
 
     dispatch({ type: "[Cart] - Update Address", payload: address });
   };

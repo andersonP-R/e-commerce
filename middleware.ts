@@ -11,9 +11,7 @@ export async function middleware(req: NextRequest) {
 
   if (!session) {
     const url = req.nextUrl.clone();
-    console.log(url);
     url.pathname = `/auth/login`;
-    console.log(url);
     url.search = `p=${requestedPage}`;
 
     // if (requestedPage.includes("/api")) {

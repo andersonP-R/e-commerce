@@ -25,11 +25,11 @@ const SummaryPage = () => {
   const [isPosting, setIsPosting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    if (!Cookies.get("firstName")) {
-      router.push("/checkout/address");
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   if (!Cookies.get("firstName")) {
+  //     router.push("/checkout/address");
+  //   }
+  // }, [router]);
 
   const onCreateOrder = async () => {
     setIsPosting(true);
