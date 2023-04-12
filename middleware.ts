@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
   // url.pathname = `/auth/login`;
   // url.search = `p=${requestedPage}`;
 
-  if (!session) return NextResponse.redirect(new URL("/", req.url));
+  // if (!session) return NextResponse.redirect(new URL("/", req.url));
 
   if (session.user.role !== "admin") {
     return NextResponse.redirect(new URL("/", req.url));
