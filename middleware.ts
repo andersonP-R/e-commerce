@@ -3,10 +3,13 @@ import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(req: NextRequest) {
+  // getSession()
+
   const session: any = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
   });
+
   const requestedPage = req.nextUrl.pathname;
   const validRoles = ["admin", "super-user", "SEO"];
   // const url = req.nextUrl.clone();
@@ -15,7 +18,7 @@ export async function middleware(req: NextRequest) {
 
   // if (!session) return NextResponse.redirect(new URL("/", req.url));
 
-  if (session.user!.role !== "admin") {
+  if (session.user.role !== "admin") {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
