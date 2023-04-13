@@ -18,6 +18,8 @@ import { ShopLayout } from "@/components/layouts";
 import { CartList, OrderSummary } from "@/components/cart";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 const SummaryPage = () => {
   const router = useRouter();
@@ -142,13 +144,13 @@ const SummaryPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
     return {
       redirect: {
-        destination: `/auth/login?p=${req.url}`,
+        destination: `/auth/login?p=/checkout/summary`,
         permanent: false,
       },
     };

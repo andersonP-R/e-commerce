@@ -21,8 +21,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const { data, status } = useSession();
 
   useEffect(() => {
-    if (!data) return;
-
     if (status === "authenticated") {
       dispatch({ type: "[Auth] - Login", payload: data?.user as IUser });
     }
@@ -44,7 +42,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         password,
       });
       const { token, user } = data;
-      Cookies.set("token", token, { sameSite: "strict" });
+      Cookies.set("token", token, { sameSite: "lax", secure: true });
       dispatch({ type: "[Auth] - Login", payload: user });
       return true;
     } catch (error) {
@@ -64,7 +62,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         password,
       });
       const { token, user } = data;
-      Cookies.set("token", token, { sameSite: "strict" });
+      Cookies.set("token", token, { sameSite: "lax", secure: true });
       dispatch({ type: "[Auth] - Login", payload: user });
       return {
         hasError: false,

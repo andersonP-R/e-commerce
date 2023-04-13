@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import NextLink from "next/link";
 import { GetServerSideProps } from "next";
-import { getSession, signIn, getProviders } from "next-auth/react";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { getServerSession } from "next-auth/next";
+import { signIn, getProviders } from "next-auth/react";
 
 import {
   Button,
@@ -176,8 +178,9 @@ const LoginPage = () => {
 export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
+  res,
 }) => {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
   const { p = "/" } = query;
 
   if (session) {

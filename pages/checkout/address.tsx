@@ -6,8 +6,10 @@ import Cookies from "js-cookie";
 import { CartContext } from "@/context";
 import { countries } from "@/utils";
 import { ShopLayout } from "@/components/layouts";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
+import { Session, getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 type FormData = {
   firstName: string;
@@ -198,13 +200,13 @@ const AddressPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
     return {
       redirect: {
-        destination: `/auth/login?p=${req.url}`,
+        destination: `/auth/login?p=/checkout/address`,
         permanent: false,
       },
     };
