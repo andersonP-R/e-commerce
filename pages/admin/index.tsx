@@ -17,6 +17,9 @@ import {
 } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 const DashboardPage = () => {
   const { data, error } = useSWR<DashboardSummaryResponse>(
@@ -142,6 +145,23 @@ const DashboardPage = () => {
       </IconContext.Provider>
     </AdminLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session: any = await getServerSession(req, res, authOptions);
+
+  if (session?.user.role !== "admin") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default DashboardPage;
