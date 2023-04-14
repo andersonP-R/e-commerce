@@ -1,21 +1,15 @@
 import { FC, PropsWithChildren } from "react";
-import { Box, Typography } from "@mui/material";
-import { AdminNavbar } from "../admin";
-import { SideMenu } from "../ui";
 import Head from "next/head";
+import { Box, Divider, Typography } from "@mui/material";
+import { AdminNavbar, AdminSideMenu } from "../admin";
 
 interface Props {
-  title: string;
-  subTitle: string;
   icon?: JSX.Element;
   titlePage: string;
 }
 
 export const AdminLayout: FC<PropsWithChildren<Props>> = ({
   children,
-  title,
-  subTitle,
-  icon,
   titlePage,
 }) => {
   return (
@@ -23,30 +17,38 @@ export const AdminLayout: FC<PropsWithChildren<Props>> = ({
       <Head>
         <title>{titlePage}</title>
       </Head>
-      <nav>
-        <AdminNavbar />
-      </nav>
 
-      <SideMenu />
+      <Box display="flex">
+        {/* sidemenu */}
+        <AdminSideMenu />
 
-      <main
-        style={{
-          margin: "80px auto",
-          maxWidth: "1440px",
-          padding: "0px 30px",
-        }}
-      >
-        <Box display="flex" flexDirection="column">
-          <Typography variant="h1" component="h1">
-            {icon} {title}
-          </Typography>
-          <Typography variant="h2" sx={{ mb: 1 }}>
-            {subTitle}
-          </Typography>
+        {/* principal content */}
+        <Box
+          sx={{
+            width: { xs: "100%", sm: "calc(100% - 250px)" },
+            backgroundColor: "#eee",
+          }}
+        >
+          <AdminNavbar />
+          <Box p={2}>
+            <Typography variant="h1">{titlePage}</Typography>
+          </Box>
+
+          <Divider sx={{ mb: 2 }} />
+
+          <Box
+            sx={{
+              p: 2,
+              height: "calc(100vh - 80px)",
+              overflowY: "scroll",
+              scrollbarWidth: "thin",
+              m: 2,
+            }}
+          >
+            {children}
+          </Box>
         </Box>
-
-        <Box className="fadeIn">{children}</Box>
-      </main>
+      </Box>
     </>
   );
 };
