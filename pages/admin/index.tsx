@@ -6,7 +6,6 @@ import { AdminLayout } from "@/components/layouts";
 import { SummaryTitle } from "@/components/admin";
 import { DashboardSummaryResponse } from "@/interfaces";
 import {
-  MdOutlineDashboard,
   MdOutlineWorkspaces,
   MdSupervisorAccount,
   MdOutlineAssignmentTurnedIn,
@@ -17,6 +16,7 @@ import {
   MdSync,
 } from "react-icons/md";
 import { IconContext } from "react-icons";
+import { useSession } from "next-auth/react";
 
 const DashboardPage = () => {
   const { data, error } = useSWR<DashboardSummaryResponse>(
@@ -56,12 +56,7 @@ const DashboardPage = () => {
   } = data!;
 
   return (
-    <AdminLayout
-      titlePage="Dashboard administrativo"
-      title="Dashboard"
-      subTitle="Estadisticas generales"
-      icon={<MdOutlineDashboard />}
-    >
+    <AdminLayout titlePage="Estadísticas generales">
       <IconContext.Provider value={{ style: { fontSize: "3rem" } }}>
         <Grid container spacing={2}>
           <SummaryTitle

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Grid, Select, MenuItem } from "@mui/material";
-import { MdSupervisorAccount } from "react-icons/md";
 import { IUser } from "@/interfaces";
 import { tesloApi } from "@/axiosApi";
 import { AdminLayout } from "@/components/layouts";
@@ -70,12 +69,7 @@ const UsersPage = () => {
   }));
 
   return (
-    <AdminLayout
-      titlePage="Administrar usuarios"
-      title={"Usuarios"}
-      subTitle={"Mantenimiento de usuarios"}
-      icon={<MdSupervisorAccount />}
-    >
+    <AdminLayout titlePage="Usuarios totales">
       <Grid container className="fadeIn">
         <Grid item xs={12} sx={{ height: 650, width: "100%" }}>
           <DataGrid rows={rows} columns={columns} pageSizeOptions={[100]} />

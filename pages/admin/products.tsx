@@ -3,7 +3,7 @@ import { Box, Button, CardMedia, Grid, Link } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import useSWR from "swr";
 
-import { MdLibraryAdd, MdOutlineWorkspaces } from "react-icons/md";
+import { MdLibraryAdd } from "react-icons/md";
 import { IProduct } from "@/interfaces";
 import { AdminLayout } from "@/components/layouts";
 
@@ -61,12 +61,7 @@ const ProductsPage = () => {
   }));
 
   return (
-    <AdminLayout
-      titlePage="Administración de productos"
-      title={`Productos (${data?.length})`}
-      subTitle={"Mantenimiento de productos"}
-      icon={<MdOutlineWorkspaces />}
-    >
+    <AdminLayout titlePage="Productos totales">
       <Box display="flex" justifyContent="end" sx={{ mb: 2 }}>
         <Button
           startIcon={<MdLibraryAdd />}

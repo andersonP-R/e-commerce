@@ -1,9 +1,9 @@
 import useSWR from "swr";
-import { Chip, Grid } from "@mui/material";
+import { Chip, Grid, Link } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IOrder, IUser } from "@/interfaces";
 import { AdminLayout } from "@/components/layouts";
-import { MdListAlt } from "react-icons/md";
+import NextLink from "next/link";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "Orden ID", width: 250 },
@@ -32,9 +32,9 @@ const columns: GridColDef[] = [
     headerName: "Ver orden",
     renderCell: ({ row }) => {
       return (
-        <a href={`/admin/orders/${row.id}`} target="_blank" rel="noreferrer">
-          Ver orden
-        </a>
+        <NextLink href={`/admin/orders/${row.id}`} passHref legacyBehavior>
+          <Link underline="always">Ver orden</Link>
+        </NextLink>
       );
     },
   },
@@ -57,12 +57,7 @@ const OrdersPage = () => {
   }));
 
   return (
-    <AdminLayout
-      titlePage="Administrar ordenes"
-      title={"Ordenes"}
-      subTitle={"Mantenimiento de ordenes"}
-      icon={<MdListAlt />}
-    >
+    <AdminLayout titlePage="Órdenes totales">
       <Grid container className="fadeIn">
         <Grid item xs={12} sx={{ height: 650, width: "100%" }}>
           <DataGrid rows={rows} columns={columns} pageSizeOptions={[100]} />

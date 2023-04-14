@@ -65,7 +65,7 @@ const RegisterPage = () => {
                 Crear cuenta
               </Typography>
               <Chip
-                label="No reconocemos ese usuario / contraseña"
+                label={errorMessage}
                 color="error"
                 icon={<MdErrorOutline />}
                 className="fadeIn"

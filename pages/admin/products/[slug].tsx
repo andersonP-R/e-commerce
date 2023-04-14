@@ -18,8 +18,6 @@ import {
   FormGroup,
   FormLabel,
   Grid,
-  ListItem,
-  Paper,
   Radio,
   RadioGroup,
   TextField,
@@ -27,7 +25,7 @@ import {
 import { IProduct } from "@/interfaces";
 import { dbProducts } from "@/database";
 import { Product } from "@/models";
-import { MdCloudUpload, MdLightbulb, MdSave } from "react-icons/md";
+import { MdCloudUpload, MdSave } from "react-icons/md";
 import { AdminLayout } from "@/components/layouts";
 import { tesloApi } from "@/axiosApi";
 
@@ -174,10 +172,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 
   return (
     <AdminLayout
-      titlePage="Administración producto"
-      title={"Producto"}
-      subTitle={`Editando: ${product.title}`}
-      icon={<MdLightbulb />}
+      titlePage={product._id ? `Producto: ${product.title}` : "Nuevo producto"}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display="flex" justifyContent="end" sx={{ mb: 1 }}>
@@ -212,7 +207,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
               label="Descripción"
               variant="filled"
               fullWidth
-              multiline
+              multiline={false}
               sx={{ mb: 1 }}
               {...register("description", {
                 required: "Este campo es requerido",

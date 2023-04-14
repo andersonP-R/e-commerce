@@ -10,11 +10,11 @@ export const checkUserEmailPassWord = async (
   const user = await User.findOne({ email });
   await db.disconnect();
 
-  // if (!user) return null;
+  if (!user) return null;
 
-  if (!bcrypt.compareSync(password, user!.password!)) return null;
+  if (!bcrypt.compareSync(password, user.password!)) return null;
 
-  const { role, name, _id } = user!;
+  const { role, name, _id } = user;
 
   return {
     _id,

@@ -1,22 +1,14 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { withAuth } from "next-auth/middleware";
 
-export async function middleware(req: NextRequest) {
-  const session: any = await getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+export default withAuth(
+  function middleware(req) {
+    console.log(req.nextUrl.pathname);
+  },
+  {
+    callbacks: {
+      authorized: ({ token }: any) => token?.user.role === "admin",
+    },
+  }
+);
 
-  const requestedPage = req.nextUrl.pathname;
-  const validRoles = ["admin", "super-user", "SEO"];
-  // const url = req.nextUrl.clone();
-  // url.pathname = `/auth/login`;
-  // url.search = `p=${requestedPage}`;
-
-  return NextResponse.next();
-}
-
-export const config = {
-  matcher: "/admin/:path*",
-};
+export const config = { matcher: ["/admin/:path*"] };
