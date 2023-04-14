@@ -21,8 +21,6 @@ import {
   MdLogout,
   MdOutlineAccountCircle,
   MdOutlineDashboard,
-  MdSupervisorAccount,
-  MdOutlineWorkspaces,
   MdOutlineChildCare,
   MdOutlineFemale,
   MdMale,
@@ -164,27 +162,6 @@ export const SideMenu = () => {
                     <MdOutlineDashboard />{" "}
                   </ListItemIcon>
                   <ListItemText primary={"Dashboard"} />
-                </ListItemButton>
-
-                <ListItemButton onClick={() => navigateTo("/admin/products")}>
-                  <ListItemIcon>
-                    <MdOutlineWorkspaces />{" "}
-                  </ListItemIcon>
-                  <ListItemText primary={"Productos"} />
-                </ListItemButton>
-                <ListItemButton onClick={() => navigateTo("/admin/orders")}>
-                  <ListItemIcon>
-                    <MdListAlt />
-                  </ListItemIcon>
-                  <ListItemText primary={"Ordenes"} />
-                </ListItemButton>
-
-                <ListItemButton onClick={() => navigateTo("/admin/users")}>
-                  <ListItemIcon>
-                    {" "}
-                    <MdSupervisorAccount />{" "}
-                  </ListItemIcon>
-                  <ListItemText primary={"Usuarios"} />
                 </ListItemButton>
               </>
             )}
