@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import useSWR from "swr";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../api/auth/[...nextauth]";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Grid, Select, MenuItem } from "@mui/material";
 import { IUser } from "@/interfaces";
@@ -78,5 +81,31 @@ const UsersPage = () => {
     </AdminLayout>
   );
 };
+
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+//   const session = await getServerSession(req, res, authOptions);
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   if (session.user.role !== "admin") {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: {},
+//   };
+// };
 
 export default UsersPage;

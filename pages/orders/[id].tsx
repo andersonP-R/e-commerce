@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -23,8 +24,6 @@ import { dbOrders } from "@/database";
 import { OrderResponseBody } from "@paypal/paypal-js";
 import { MdCreditCard, MdCreditCardOff } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]";
 
 interface Props {
   order: IOrder;
@@ -191,7 +190,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
 }) => {
   const { id = "" } = query;
-  // const session = await getSession({ req });
   const session = await getServerSession(req, res, authOptions);
 
   if (!session) {

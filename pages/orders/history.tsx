@@ -1,7 +1,5 @@
 import NextLink from "next/link";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/react";
-
 import { Typography, Grid, Chip, Link } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IOrder } from "@/interfaces";

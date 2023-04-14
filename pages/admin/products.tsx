@@ -1,4 +1,7 @@
 import NextLink from "next/link";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../api/auth/[...nextauth]";
 import { Box, Button, CardMedia, Grid, Link } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import useSWR from "swr";
@@ -79,6 +82,32 @@ const ProductsPage = () => {
       </Grid>
     </AdminLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  if (session.user.role !== "admin") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default ProductsPage;

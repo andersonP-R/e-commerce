@@ -1,4 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 import {
   Box,
@@ -122,9 +124,29 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
+  res,
 }) => {
   const { id = "" } = query;
   const order = await dbOrders.getOrderById(id.toString());
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  if (session.user.role !== "admin") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   if (!order) {
     return {

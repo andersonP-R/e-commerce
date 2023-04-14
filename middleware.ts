@@ -1,14 +1,20 @@
-import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-export default withAuth(
-  function middleware(req) {
-    console.log(req.nextUrl.pathname);
+export async function middleware(req: NextRequest) {
+  const session: any = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (!session) {
+    return NextResponse.redirect(new URL("/", req.url));
   }
-  // {
-  //   callbacks: {
-  //     authorized: ({ token }: any) => token?.user.role === "admin",
-  //   },
-  // }
-);
 
-export const config = { matcher: ["/search"] };
+  if (session.user.role !== "admin") {
+    return NextResponse.redirect(new URL("/category/kid", req.url));
+  }
+}
+
+export const config = { matcher: "/admin/users" };
