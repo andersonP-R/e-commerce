@@ -7,6 +7,8 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IOrder } from "@/interfaces";
 import { ShopLayout } from "@/components/layouts";
 import { dbOrders } from "@/database";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 100 },
@@ -78,8 +80,8 @@ const HistoryPage: NextPage<Props> = ({ orders }) => {
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session: any = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
     return {

@@ -148,9 +148,18 @@ const DashboardPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session: any = await getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
-  if (session?.user.role !== "admin") {
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  if (session.user.role !== "admin") {
     return {
       redirect: {
         destination: "/",
